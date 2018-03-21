@@ -104,7 +104,82 @@
 -- GROUP BY first_name, last_name;
 
 
--- CHALLENGE
+-- CHALLENGES
+-- CREATE TABLE students
+--     (
+--         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+--         first_name VARCHAR(100) NOT NULL UNIQUE
+--     );
+    
+-- CREATE TABLE papers
+--     (
+--         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+--         title VARCHAR(100),
+--         grade INT,
+--         student_id INT,
+--         FOREIGN KEY(student_id) REFERENCES students(id)
+--         ON DELETE CASCADE
+--     );
+    
+-- INSERT INTO students (first_name) VALUES 
+-- ('Caleb'), 
+-- ('Samantha'), 
+-- ('Raj'), 
+-- ('Carlos'), 
+-- ('Lisa');
+ 
+-- INSERT INTO papers (student_id, title, grade ) VALUES
+-- (1, 'My First Book Report', 60),
+-- (1, 'My Second Book Report', 75),
+-- (2, 'Russian Lit Through The Ages', 94),
+-- (2, 'De Montaigne and The Art of The Essay', 98),
+-- (4, 'Borges and Magical Realism', 89);
 
+-- SELECT
+--     st.first_name,
+--     p.title,
+--     p.grade
+-- FROM students st
+-- JOIN papers p
+--     ON st.id = p.student_id
+-- ORDER BY p.grade DESC;
 
+-- SELECT
+--     st.first_name,
+--     p.title,
+--     p.grade
+-- FROM students st
+-- LEFT JOIN papers p
+--     ON st.id = p.student_id
+-- ORDER BY st.id;
 
+-- SELECT
+--     st.first_name,
+--     IFNULL(p.title, 'MISSING') AS title,
+--     IFNULL(p.grade, 0) AS grade
+-- FROM students st
+-- LEFT JOIN papers p
+--     ON st.id = p.student_id
+-- ORDER BY st.id;
+
+-- SELECT
+--     st.first_name,
+--     IFNULL(AVG(p.grade), '0') AS average
+-- FROM students st
+-- LEFT JOIN papers p
+--    ON st.id = p.student_id
+-- GROUP BY st.id
+-- ORDER BY average DESC, st.first_name DESC;
+
+-- SELECT
+--     st.first_name AS 'Student',
+--     IFNULL(AVG(p.grade), '0') AS average,
+--     CASE
+--         WHEN p.grade > 70 THEN 'PASSING'
+--         ELSE 'FAILING'
+--     END AS 'Status'
+-- FROM students st
+-- LEFT JOIN papers p
+--     ON st.id = p.student_id
+-- GROUP BY st.id
+-- ORDER BY p.grade DESC, st.first_name DESC;
